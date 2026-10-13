@@ -1,0 +1,19 @@
+---
+interface Props {
+  size?: number;
+  label?: string;
+}
+const { size = 28, label } = Astro.props;
+---
+<svg
+  width={size}
+  height={Math.round(size * 1.1)}
+  viewBox="0 0 40 44"
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+>
+  <path d="M20 2C11.2 2 4 9 4 17.6 4 29 20 42 20 42S36 29 36 17.6C36 9 28.8 2 20 2Z" fill="var(--ink)"></path>
+  <path d="M20 8 23.2 17.6 20 27.2 16.8 17.6Z" fill="var(--accent)"></path>
+  <path d="M10.4 17.6 20 15 29.6 17.6 20 20.2Z" fill="var(--bg)"></path>
+</svg>

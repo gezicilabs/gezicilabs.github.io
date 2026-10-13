@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../i18n/ui';
+---
+<Base lang="tr" path="/" title="404">
+  <section class="wrap" style="position:relative;padding-block:120px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
+    <span class="mono kicker">404 · N ?° · E ?°</span>
+    <h1 class="disp h2">{t('tr', '404.title')}</h1>
+    <p class="lead">{t('tr', '404.text')} <span lang="en">{t('en', '404.text')}</span></p>
+    <a href="/" class="btn btn-accent">{t('tr', '404.home')}</a>
+  </section>
+</Base>

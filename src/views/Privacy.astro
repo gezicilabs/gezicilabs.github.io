@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { render, type CollectionEntry } from 'astro:content';
+import { t, localePath, type Lang } from '../i18n/ui';
+import type { App } from '../lib/apps';
+
+interface Props {
+  lang: Lang;
+  app: App;
+  policy: CollectionEntry<'privacy'>;
+}
+const { lang, app, policy } = Astro.props;
+const { Content } = await render(policy);
+---
+<Base lang={lang} path={`/apps/${app.id}/privacy/`} title={`${policy.data.title} · ${app.data.name}`}>
+  <section class="wrap" style="position:relative;padding-block:48px 96px">
+    <article class="doc glass">
+      <span class="mono kicker">{app.data.name}</span>
+      <h1 class="disp h2" style="margin-top:12px">{policy.data.title}</h1>
+      <p class="mono" style="font-size:12px;color:var(--muted2);margin:16px 0 8px">{t(lang, 'privacy.updated')}: {policy.data.updated}</p>
+      <div class="prose">
+        <Content />
+      </div>
+      <a href={localePath(lang, `/apps/${app.id}/`)} class="btn btn-ink" style="margin-top:24px">← {t(lang, 'privacy.back')}</a>
+    </article>
+  </section>
+</Base>

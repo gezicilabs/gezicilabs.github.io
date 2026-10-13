@@ -1,0 +1,37 @@
+---
+import { t, localePath, type Lang } from '../i18n/ui';
+import { site } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const home = localePath(lang, '/');
+const year = new Date().getFullYear();
+---
+<footer id="iletisim" class="site-footer">
+  <div class="footer-in glass">
+    <div class="footer-top">
+      <div>
+        <h2 class="disp">{t(lang, 'footer.title')}</h2>
+        {site.email && <a class="btn btn-ink" href={`mailto:${site.email}`}>{site.email}</a>}
+      </div>
+      <div class="footer-cols">
+        <div>
+          <span class="mono">{t(lang, 'footer.site')}</span>
+          <a href={`${home}#uygulamalar`}>{t(lang, 'nav.apps')}</a>
+          <a href={`${home}#hakkinda`}>{t(lang, 'nav.about')}</a>
+        </div>
+        <div>
+          <span class="mono">{t(lang, 'footer.links')}</span>
+          {site.playDeveloperUrl && <a href={site.playDeveloperUrl} rel="noopener">Google Play</a>}
+          {site.githubUrl && <a href={site.githubUrl} rel="noopener">GitHub</a>}
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {year} Gezicilabs</span>
+      <span class="mono" style="font-size:12px">{t(lang, 'footer.end')}</span>
+    </div>
+  </div>
+</footer>

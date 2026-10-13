@@ -1,0 +1,27 @@
+---
+import AppIcon from './AppIcon.astro';
+import { t, localePath, type Lang } from '../i18n/ui';
+import { stopNumber, type App } from '../lib/apps';
+
+interface Props {
+  app: App;
+  index: number;
+  lang: Lang;
+}
+const { app, index, lang } = Astro.props;
+const { name, tagline, status } = app.data;
+---
+<a href={localePath(lang, `/apps/${app.id}/`)} class="card glass lift">
+  <div class="card-top">
+    <AppIcon app={app} />
+    <span class="mono" style="font-size:12px;color:var(--muted2)">{t(lang, 'apps.stop')} {stopNumber(index)}</span>
+  </div>
+  <div>
+    <h3 class="disp">{name}</h3>
+    <p>{tagline[lang]}</p>
+  </div>
+  <div class="card-foot">
+    <span class={`status ${status}`}><i></i>{t(lang, `status.${status}`)}</span>
+    <b>{t(lang, 'apps.view')} →</b>
+  </div>
+</a>

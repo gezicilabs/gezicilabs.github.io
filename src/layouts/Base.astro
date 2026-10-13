@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { t, localePath, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  /** Turkish (unprefixed) path of this page, e.g. "/apps/foo/". */
+  path: string;
+  title?: string;
+  description?: string;
+}
+const { lang, path, title, description = t(lang, 'meta.description') } = Astro.props;
+const fullTitle = title ? `${title} · Gezicilabs` : 'Gezicilabs';
+const canonical = new URL(localePath(lang, path), Astro.site);
+const trUrl = new URL(localePath('tr', path), Astro.site);
+const enUrl = new URL(localePath('en', path), Astro.site);
+---
+<!doctype html>
+<html lang={lang} data-theme="light" data-theme-mode="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="tr" href={trUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={trUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_US'} />
+    <meta name="theme-color" content="#FFFBF0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@500&display=swap"
+    />
+    <!-- Set the theme before first paint (same rules as src/lib/theme.ts). -->
+    <script is:inline>
+      (function () {
+        var s = null;
+        try { s = localStorage.getItem('gezici-theme'); } catch (e) {}
+        if (s !== 'light' && s !== 'dark') s = null;
+        var h = new Date().getHours();
+        var dark = s ? s === 'dark' : h >= 19 || h < 7;
+        var r = document.documentElement;
+        r.dataset.theme = dark ? 'dark' : 'light';
+        r.dataset.themeMode = s ? 'manual' : 'auto';
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="page">
+      <div class="ambient" aria-hidden="true">
+        <div class="blob" style="width:620px;height:620px;top:-160px;right:-120px;background:var(--b1)"></div>
+        <div class="blob b2" style="width:520px;height:520px;top:260px;left:-200px;background:var(--b2)"></div>
+        <div class="blob b3" style="width:460px;height:460px;top:42%;right:8%;background:var(--b3)"></div>
+        <div class="blob" style="width:560px;height:560px;top:72%;left:10%;background:var(--b4)"></div>
+        <div class="stars">
+          <span class="star" style="top:140px;left:12%"></span>
+          <span class="star" style="top:210px;left:34%;animation-delay:-1s"></span>
+          <span class="star" style="top:110px;left:58%;animation-delay:-2s"></span>
+          <span class="star" style="top:300px;left:46%;animation-delay:-.5s"></span>
+          <span class="star" style="top:520px;left:8%;animation-delay:-1.6s"></span>
+          <span class="star" style="top:640px;left:40%;animation-delay:-2.6s"></span>
+          <span class="star" style="top:180px;left:88%;animation-delay:-.8s"></span>
+          <span class="star" style="top:420px;left:94%;animation-delay:-2.2s"></span>
+          <span class="star" style="top:55%;left:22%;animation-delay:-1.2s"></span>
+          <span class="star" style="top:70%;left:76%;animation-delay:-3s"></span>
+        </div>
+      </div>
+      <Header lang={lang} path={path} />
+      <main>
+        <slot />
+      </main>
+      <Footer lang={lang} />
+    </div>
+  </body>
+</html>

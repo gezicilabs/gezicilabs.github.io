@@ -1,0 +1,21 @@
+---
+import type { App } from '../lib/apps';
+
+interface Props {
+  app: App;
+  size?: number;
+}
+const { app, size = 34 } = Astro.props;
+const { icon, color, name } = app.data;
+---
+<div class="app-icon" style={`background:${color}`}>
+  {icon ? (
+    <img src={icon} alt="" width="128" height="128" loading="lazy" />
+  ) : (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#2B2618" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="m15.5 8.5-2 5-5 2 2-5Z"></path>
+    </svg>
+  )}
+  <span class="sr-only">{name}</span>
+</div>

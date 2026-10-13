@@ -1,0 +1,53 @@
+---
+import Logo from './Logo.astro';
+import { t, localePath, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  /** Current page's Turkish (unprefixed) path, used for the language switch. */
+  path: string;
+}
+const { lang, path } = Astro.props;
+const home = localePath(lang, '/');
+---
+<header class="site-header">
+  <nav class="nav glass" aria-label="Gezicilabs">
+    <a href={home} class="brand">
+      <Logo />
+      <span class="disp">gezicilabs</span>
+    </a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a class="nav-link" href={`${home}#uygulamalar`}>{t(lang, 'nav.apps')}</a>
+        <a class="nav-link" href={`${home}#hakkinda`}>{t(lang, 'nav.about')}</a>
+        <a class="nav-link" href={`${home}#iletisim`}>{t(lang, 'nav.contact')}</a>
+      </div>
+      <div class="seg mono" role="group" aria-label={t(lang, 'nav.language')}>
+        <a href={localePath('tr', path)} hreflang="tr" lang="tr" aria-current={lang === 'tr' ? 'true' : undefined}>TR</a>
+        <a href={localePath('en', path)} hreflang="en" lang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
+      </div>
+      <div class="theme-ctl">
+        <button type="button" class="icon-btn auto-btn mono" data-theme-auto title={t(lang, 'theme.autoHint')}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+          {t(lang, 'theme.auto')}
+        </button>
+        <button
+          type="button"
+          class="icon-btn theme-btn"
+          data-theme-toggle
+          data-label-dark={t(lang, 'theme.toDark')}
+          data-label-light={t(lang, 'theme.toLight')}
+          aria-label={t(lang, 'theme.toDark')}
+        >
+          <svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"></path></svg>
+          <svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2C462" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  import { initThemeControls } from '../lib/theme';
+  initThemeControls();
+</script>

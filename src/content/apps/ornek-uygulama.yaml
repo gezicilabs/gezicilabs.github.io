@@ -1,0 +1,37 @@
+# ÖRNEK UYGULAMA: yeni uygulama eklerken bu dosyayı kopyala.
+# Dosya adı adresi belirler: ornek-uygulama.yaml -> /apps/ornek-uygulama/
+# "draft: true" olan uygulamalar yalnızca "npm run dev" ile görünür, canlı sitede çıkmaz.
+draft: true
+
+name: Örnek Uygulama
+order: 1                 # Sıralama: küçük sayı önce
+status: live             # live | beta | soon
+color: "#FFD978"         # İkon yoksa arka plan rengi
+# icon: /apps/ornek-uygulama/icon.png          # public/apps/ornek-uygulama/icon.png
+# playUrl: https://play.google.com/store/apps/details?id=com.gezicilabs.ornek
+
+category:
+  tr: Seyahat
+  en: Travel
+tagline:
+  tr: Uygulamanın ne işe yaradığını anlatan tek cümle.
+  en: One sentence about what the app does.
+summary:
+  tr: Uygulamanın ne yaptığını ve kime hitap ettiğini anlatan bir iki cümle.
+  en: A sentence or two about what the app does and who it is for.
+
+features:
+  - title: { tr: Birinci özellik, en: First feature }
+    text: { tr: Bu özelliğin kullanıcıya ne kazandırdığı., en: What this feature gives the user. }
+  - title: { tr: İkinci özellik, en: Second feature }
+    text: { tr: Kısa bir açıklama., en: A short description. }
+
+screenshots: []
+#  - /apps/ornek-uygulama/1.png
+
+version: 1.0.0
+updated: "2026-10-13"
+size: 12 MB
+minAndroid: "8.0"
+languages: Türkçe, English
+# supportEmail: destek@ornek.com
